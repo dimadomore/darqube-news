@@ -1,6 +1,6 @@
 export interface NewsItem {
   id: number;
-  category: string;
+  category: NewsCategory;
   datetime: number;
   headline: string;
   img: string;
@@ -8,4 +8,8 @@ export interface NewsItem {
   source: string;
   summary: string;
   url: string;
+}
+
+enum NewsCategory {
+  COMPANY = 'company',
 }
