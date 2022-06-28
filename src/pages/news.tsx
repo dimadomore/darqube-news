@@ -1,13 +1,13 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 
+import { Tabs } from 'components/shared';
+
 interface Props {
   news: any[];
 }
 
-const Home: NextPage<Props> = ({ news }) => {
-  console.log('news:', news);
-
+const News: NextPage<Props> = ({ news }) => {
   return (
     <div>
       <Head>
@@ -71,4 +71,4 @@ export const getServerSideProps = () => {
   };
 };
 
-export default Home;
+export default News;
