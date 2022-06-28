@@ -8,6 +8,8 @@ module.exports = {
     colors: {
       'gray-light': '#3C3C3C',
       'gray-dark': '#242525',
+      red: '#B73556',
+      'opacity-8': 'rgba(255, 255, 255, .08)',
     },
     fontFamily: {
       sans: ['Ubuntu', 'sans-serif'],
@@ -16,6 +18,7 @@ module.exports = {
       body: 'white',
     },
     spacing: {
+      0: 0,
       1: '4px',
       2: '8px',
       3: '12px',

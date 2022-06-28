@@ -1,7 +1,6 @@
-import { NewsItem } from 'types';
+import { NewsItem } from 'common/types';
+import { API_TOKEN } from 'common/constants';
 import { api } from './setup';
-
-const token = 'bpjsf67rh5r9328ecgvg';
 
 interface Params {
   symbol: string;
@@ -10,4 +9,4 @@ interface Params {
 }
 
 export const getCompanyNews = (params: Params): Promise<NewsItem[]> =>
-  api.get('/company-news', { params: { ...params, token } });
+  api.get('/company-news', { params: { ...params, token: API_TOKEN } });

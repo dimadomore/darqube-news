@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { NewsItem } from 'types';
+import { NewsItem } from 'common/types';
 
 import { NewsCardItem } from './NewsCardItem';
 
@@ -11,18 +11,20 @@ export const NewsCardList: React.FC<Props> = ({ data }) => {
   if (!data?.length) return null;
 
   return (
-    <div>
+    <div className="mb-6">
       <ul
         className="grid"
-        style={{ gridTemplateColumns: 'repeat(3, 280px)', gridGap: '18px' }}
+        style={{
+          gridTemplateColumns: 'repeat(3, 280px)',
+          gridAutoRows: '425px',
+          gridGap: '18px',
+        }}
       >
         {data.map((item) => (
           <li key={item.id}>
-            <Link href={item.url}>
-              <a target="_blank">
-                <NewsCardItem itemData={item} />
-              </a>
-            </Link>
+            <a href={item.url} target="_blank" rel="noreferrer">
+              <NewsCardItem itemData={item} />
+            </a>
           </li>
         ))}
       </ul>
