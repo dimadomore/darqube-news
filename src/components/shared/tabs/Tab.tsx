@@ -1,4 +1,4 @@
-import React from 'react';
+import { PropsWithChildren } from 'react';
 import Link from 'next/link';
 
 interface Props {
@@ -6,7 +6,11 @@ interface Props {
   link: string;
 }
 
-export const Tab: React.FC<Props> = ({ isActive, children, link }) => {
+export const Tab: React.FC<PropsWithChildren<Props>> = ({
+  isActive,
+  children,
+  link,
+}) => {
   return (
     <Link href={link}>
       <a className={`${!isActive ? 'opacity-50' : ''}`}>{children}</a>

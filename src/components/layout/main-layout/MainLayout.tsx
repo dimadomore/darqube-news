@@ -1,9 +1,5 @@
-import React from 'react';
+import { PropsWithChildren } from 'react';
 import { Tabs } from 'components/shared';
-
-interface Props {
-  isActive: boolean;
-}
 
 const tabs = [
   {
@@ -16,7 +12,7 @@ const tabs = [
   },
 ];
 
-export const MainLayout: React.FC<Props> = ({ children }) => {
+export const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <main className="mt-9 px-5">
       <div className="mb-4">
