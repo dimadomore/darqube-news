@@ -6,6 +6,7 @@ module.exports = {
   ],
   theme: {
     colors: {
+      'gray-light': '#3C3C3C',
       'gray-dark': '#242525',
     },
     fontFamily: {

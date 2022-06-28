@@ -8,13 +8,14 @@ interface Props {
   isLatest?: boolean;
 }
 
+const fallbackNewsCardImage = './fallback-news-bg.png';
+
 export const NewsCardItem: React.FC<Props> = ({ itemData, isLatest }) => {
   const { headline, image, related, datetime } = itemData;
-  const { src, blur } = useProgressiveImg('./fallback-news-bg.png', image);
-
-  const date = new Date(datetime * 1000);
-
-  console.log('date:', date);
+  const { src: imageSrc, blur } = useProgressiveImg(
+    fallbackNewsCardImage,
+    image,
+  );
 
   const formattedDate = formatTimestamp(datetime, {
     day: 'numeric',
@@ -23,22 +24,22 @@ export const NewsCardItem: React.FC<Props> = ({ itemData, isLatest }) => {
 
   return (
     <div
-      className="rounded-md relative overflow-hidden "
+      className={`group rounded-md relative overflow-hidden h-[425px] ${
+        blur ? 'blur-sm' : ''
+      }`}
       style={{
-        height: '425px',
         background:
           'linear-gradient(180deg, rgba(28, 58, 82, 0) 0%, #05141B 75.5%)',
-        filter: blur ? 'blur(2px)' : '',
       }}
     >
       {image && (
         <img
-          src={src}
+          className="transition-opacity opacity-50 group-hover:opacity-75"
+          src={imageSrc}
           alt={`${related} news image`}
           style={{
             background:
               'linear-gradient(180deg, rgba(28, 58, 82, 0) 0%, #05141B 75.5%)',
-            opacity: 0.5,
             maxHeight: '100%',
             height: '100%',
             position: 'absolute',
@@ -54,7 +55,7 @@ export const NewsCardItem: React.FC<Props> = ({ itemData, isLatest }) => {
         </span>
         <div>
           <h3 className="mb-5">{headline}</h3>
-          <div className="flex justify-between">
+          <div className="flex justify-between items-center">
             <div className="text-xs opacity-75">{formattedDate}</div>
             <BookmarkIcon isActive={false} />
           </div>

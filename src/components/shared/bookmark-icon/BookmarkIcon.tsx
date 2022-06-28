@@ -5,9 +5,9 @@ interface Props {
 
 export const BookmarkIcon: React.FC<Props> = ({ isActive, onClick }) => {
   const source = `./bookmark-icon${isActive ? '-active' : ''}.svg`;
-  console.log('source:', source);
+
   return (
-    <button onClick={onClick}>
+    <button onClick={onClick} className="p-1">
       <img src={source} alt="" />
     </button>
   );
