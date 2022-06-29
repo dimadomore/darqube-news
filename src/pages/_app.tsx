@@ -1,13 +1,17 @@
 import 'styles/global.css';
 import type { AppProps } from 'next/app';
+import { Provider } from 'react-redux';
 
 import { MainLayout } from 'components/layout';
+import store from 'store';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <MainLayout>
-      <Component {...pageProps} />
-    </MainLayout>
+    <Provider store={store}>
+      <MainLayout>
+        <Component {...pageProps} />
+      </MainLayout>
+    </Provider>
   );
 }
 
