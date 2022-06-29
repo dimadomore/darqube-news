@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import { Tabs } from 'components/shared';
+import { Tabs, Search } from 'components/shared';
 
 const tabs = [
   {
@@ -15,8 +15,9 @@ const tabs = [
 export const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <main className="mt-9 px-5">
-      <div className="mb-4">
+      <div className="flex justify-between mb-5">
         <Tabs items={tabs} />
+        <Search onChange={() => {}} />
       </div>
       {children}
     </main>

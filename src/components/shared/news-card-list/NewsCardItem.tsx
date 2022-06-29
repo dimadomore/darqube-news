@@ -34,7 +34,9 @@ export const NewsCardItem: React.FC<Props> = ({ itemData, isLatest }) => {
     >
       {image && (
         <img
-          className="transition-opacity opacity-50 group-hover:opacity-75"
+          className={`transition-opacity opacity-50 ${
+            !isLatest ? 'group-hover:opacity-75' : ''
+          }`}
           src={imageSrc}
           alt={`${related} news image`}
           style={{
@@ -71,7 +73,7 @@ export const NewsCardItem: React.FC<Props> = ({ itemData, isLatest }) => {
                 rel="noreferrer"
               >
                 <img src="/arrow-right-icon.svg" alt="" />
-                <span className="font-bold text-sm ml-3">
+                <span className="font-bold text-sm ml-3 hover:opacity-80">
                   Read the research
                 </span>
               </a>

@@ -14,7 +14,7 @@ export const Tabs: React.FC<Props> = ({ items }) => {
   return (
     <ul className="flex font-bold text-3xl">
       {items.map((item, index) => (
-        <li key={index} className="last-of-type:ml-2">
+        <li key={index} className="last-of-type:ml-5">
           <Tab link={item.link} isActive={route === item.link}>
             {item.title}
           </Tab>
