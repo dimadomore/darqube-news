@@ -1,7 +1,7 @@
 import { ChangeEvent } from 'react';
 
 interface Props {
-  onChange: (value: string) => void;
+  onChange: any;
 }
 
 export const Search: React.FC<Props> = ({ onChange }) => {

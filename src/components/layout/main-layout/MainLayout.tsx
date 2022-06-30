@@ -12,12 +12,19 @@ const tabs = [
   },
 ];
 
-export const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
+interface Props {
+  setSearchValue: any;
+}
+
+export const MainLayout: React.FC<PropsWithChildren<Props>> = ({
+  children,
+  setSearchValue,
+}) => {
   return (
     <main className="mt-9 px-5">
       <div className="flex justify-between mb-5">
         <Tabs items={tabs} />
-        <Search onChange={() => {}} />
+        <Search onChange={setSearchValue} />
       </div>
       {children}
     </main>

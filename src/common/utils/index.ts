@@ -11,7 +11,22 @@ export const formatTimestamp = (
 };
 
 export const truncateText = (value: string, truncateAt = 50) => {
-  const shouldTruncate = value?.length > truncateAt;
+  return value?.length > truncateAt
+    ? `${value.substring(0, truncateAt)} ...`
+    : value;
+};
 
-  return shouldTruncate ? `${value.substring(0, truncateAt)} ...` : value;
+export const filterByTextInKeys = (
+  objArr: Record<string, any>[],
+  filterValue: string,
+  keys: string[],
+) => {
+  return objArr.filter((obj) =>
+    keys.some(
+      (key) =>
+        obj[key] &&
+        typeof obj[key] === 'string' &&
+        obj[key].toLowerCase().includes(filterValue.toLowerCase()),
+    ),
+  );
 };
