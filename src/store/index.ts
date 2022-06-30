@@ -3,10 +3,10 @@ import { combineReducers } from 'redux';
 
 import { newsAPI } from 'store/queries';
 
-import news from 'store/features/bookmark';
+import bookmark from 'store/features/bookmark';
 
 const reducer = combineReducers({
-  news,
+  bookmark,
   [newsAPI.reducerPath]: newsAPI.reducer,
 });
 

@@ -3,6 +3,9 @@ import Head from 'next/head';
 
 import { NewsCardList, Pagination, NewsCardItem } from 'components/shared';
 import { newsAPI } from 'store/queries';
+import { useAppDispatch, useAppSelector } from 'common/hooks';
+import { toggleOne } from 'store/features/bookmark';
+import { NewsItem } from 'common/types';
 
 const News: NextPage = () => {
   const { data: news = [] } = newsAPI.useFetchCompanyNewsQuery({
@@ -10,6 +13,12 @@ const News: NextPage = () => {
     from: '2022-04-01',
     to: '2022-06-01',
   });
+  const bookmarkIds = useAppSelector((state) => state.bookmark.ids);
+  const dispatch = useAppDispatch();
+
+  const handleNewsItemSave = (newsItem: NewsItem) => {
+    dispatch(toggleOne(newsItem));
+  };
 
   return (
     <div>
@@ -22,7 +31,11 @@ const News: NextPage = () => {
           <NewsCardItem itemData={latestNewsItem} isLatest />
         </div> */}
         <div>
-          <NewsCardList data={news} />
+          <NewsCardList
+            data={news}
+            bookmarkIds={bookmarkIds as number[]}
+            onNewsItemSaveToggle={handleNewsItemSave}
+          />
           <Pagination totalPages={24} perPageNumber={6} />
         </div>
       </div>

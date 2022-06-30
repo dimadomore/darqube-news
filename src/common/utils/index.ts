@@ -9,3 +9,9 @@ export const formatTimestamp = (
 
   return dtFormat.format(datetime);
 };
+
+export const truncateText = (value: string, truncateAt = 50) => {
+  const shouldTruncate = value?.length > truncateAt;
+
+  return shouldTruncate ? `${value.substring(0, truncateAt)} ...` : value;
+};

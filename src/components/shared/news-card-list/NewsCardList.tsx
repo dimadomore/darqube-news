@@ -1,13 +1,18 @@
-import Link from 'next/link';
 import { NewsItem } from 'common/types';
 
 import { NewsCardItem } from './NewsCardItem';
 
 interface Props {
   data: NewsItem[];
+  bookmarkIds: number[];
+  onNewsItemSaveToggle: (newsItemId: NewsItem) => void;
 }
 
-export const NewsCardList: React.FC<Props> = ({ data }) => {
+export const NewsCardList: React.FC<Props> = ({
+  data,
+  bookmarkIds,
+  onNewsItemSaveToggle,
+}) => {
   if (!data?.length) return null;
 
   return (
@@ -20,13 +25,21 @@ export const NewsCardList: React.FC<Props> = ({ data }) => {
           gridGap: '18px',
         }}
       >
-        {data.map((item) => (
-          <li key={item.id}>
-            <a href={item.url} target="_blank" rel="noreferrer">
-              <NewsCardItem itemData={item} />
-            </a>
-          </li>
-        ))}
+        {data.map((item) => {
+          const isSaved = bookmarkIds.includes(item.id);
+
+          return (
+            <li key={item.id}>
+              <a href={item.url} target="_blank" rel="noreferrer">
+                <NewsCardItem
+                  itemData={item}
+                  onSaveToggle={onNewsItemSaveToggle}
+                  isSaved={isSaved}
+                />
+              </a>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

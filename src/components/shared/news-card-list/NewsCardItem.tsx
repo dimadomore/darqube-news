@@ -1,17 +1,24 @@
 import { NewsItem } from 'common/types';
 import { useProgressiveImg } from 'common/hooks';
-import { formatTimestamp } from 'common/utils';
+import { formatTimestamp, truncateText } from 'common/utils';
 import { BookmarkIcon } from 'components/shared';
 
 interface Props {
   itemData: NewsItem;
   isLatest?: boolean;
+  isSaved?: boolean;
+  onSaveToggle: (newsItemId: NewsItem) => void;
 }
 
 const fallbackNewsCardImage = './fallback-news-bg.png';
 
-export const NewsCardItem: React.FC<Props> = ({ itemData, isLatest }) => {
-  const { headline, image, related, datetime, url } = itemData;
+export const NewsCardItem: React.FC<Props> = ({
+  itemData,
+  isLatest,
+  isSaved,
+  onSaveToggle,
+}) => {
+  const { headline, image, related, datetime, url, summary } = itemData;
   const { src: imageSrc, blur } = useProgressiveImg(
     fallbackNewsCardImage,
     image,
@@ -22,9 +29,13 @@ export const NewsCardItem: React.FC<Props> = ({ itemData, isLatest }) => {
     month: 'short',
   });
 
+  const handleBookmarkIconClick = () => {
+    onSaveToggle(itemData);
+  };
+
   return (
     <div
-      className={`group h-full rounded-md relative overflow-hidden  ${
+      className={`group h-full rounded-md relative overflow-hidden ${
         blur ? 'blur-sm' : ''
       }`}
       style={{
@@ -61,9 +72,14 @@ export const NewsCardItem: React.FC<Props> = ({ itemData, isLatest }) => {
           {related}
         </span>
         <div>
-          <h3 className={`mb-5 ${isLatest ? 'text-2xl' : 'text-xl'}`}>
+          <h3 className={`mb-2 ${isLatest ? 'text-2xl' : 'text-xl'}`}>
             {headline}
           </h3>
+          {summary && (
+            <p className="text-xs mb-5 opacity-75">
+              {truncateText(summary, 100)}
+            </p>
+          )}
           <div className="flex justify-between items-center">
             {isLatest && (
               <a
@@ -79,7 +95,10 @@ export const NewsCardItem: React.FC<Props> = ({ itemData, isLatest }) => {
               </a>
             )}
             <div className="text-xs opacity-75 flex-1">{formattedDate}</div>
-            <BookmarkIcon isActive={false} />
+            <BookmarkIcon
+              isActive={!!isSaved}
+              onClick={handleBookmarkIconClick}
+            />
           </div>
         </div>
       </div>

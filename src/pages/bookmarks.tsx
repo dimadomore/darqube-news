@@ -1,11 +1,20 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 
-interface Props {
-  news: any[];
-}
+import { NewsCardList } from 'components/shared';
+import { useAppDispatch, useAppSelector } from 'common/hooks';
+import { removeOne } from 'store/features/bookmark';
+import { NewsItem } from 'common/types';
 
-const Bookmarks: NextPage<Props> = () => {
+const Bookmarks: NextPage = () => {
+  const { ids, entities } = useAppSelector((state) => state.bookmark);
+  const dispatch = useAppDispatch();
+  const bookmarks = Object.values(entities) as NewsItem[];
+
+  const removeBookmark = (newsItem: NewsItem) => {
+    dispatch(removeOne(newsItem.id));
+  };
+
   return (
     <div>
       <Head>
@@ -13,7 +22,11 @@ const Bookmarks: NextPage<Props> = () => {
         <meta name="description" content="" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="text-3xl font-bold">Bookmarks here</div>
+      <NewsCardList
+        data={bookmarks}
+        bookmarkIds={ids as number[]}
+        onNewsItemSaveToggle={removeBookmark}
+      />
     </div>
   );
 };

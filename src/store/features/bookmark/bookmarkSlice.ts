@@ -1,27 +1,25 @@
-import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 import { NewsItem } from 'common/types';
 
-export interface BookmarkState {
-  data: NewsItem[];
-}
-
-const initialState: BookmarkState = {
-  data: [],
-};
+const bookmarkAdapter = createEntityAdapter<NewsItem>({
+  selectId: (bookmark) => bookmark.id,
+});
 
 export const bookmarkSlice = createSlice({
   name: 'bookmark',
-  initialState,
+  initialState: bookmarkAdapter.getInitialState(),
   reducers: {
-    increment: (state) => {
-      state.data = [];
-    },
-    incrementByAmount: (state, action: PayloadAction<NewsItem[]>) => {
-      state.data = action.payload;
+    removeOne: bookmarkAdapter.removeOne,
+    toggleOne: (state, action) => {
+      return [...state.ids].includes(action.payload.id)
+        ? bookmarkAdapter.removeOne(state, {
+            ...action,
+            payload: action.payload.id,
+          })
+        : bookmarkAdapter.addOne(state, action);
     },
   },
 });
 
-export const { increment, incrementByAmount } = bookmarkSlice.actions;
+export const { removeOne, toggleOne } = bookmarkSlice.actions;
 export const bookmarkReducer = bookmarkSlice.reducer;
