@@ -1,15 +1,16 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Test project for Darqube
 
-## Getting Started
+### Tech stack
 
-First, run the development server:
+- Typescript
+- Next.js
+- Redux Toolkit (I remember Darqube is using that, so decided to try ( - I liked it))
+- Tailwind.css (normalize out of box, small css output, used for the first time (usually use styled components), it was fun...)
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+### Tech stack
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- eslint
+- prettier
+- husky for precommit hooks
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Live demo - https://darqube-news.vercel.app/
