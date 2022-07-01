@@ -30,8 +30,8 @@ const News: NextPage = () => {
   } = newsAPI.useFetchCompanyNewsQuery(
     {
       symbol: 'AAPL',
-      from: '2022-04-01',
-      to: '2022-06-01',
+      from: '2022-03-01',
+      to: '2022-04-01',
     },
     {
       selectFromResult: selectPaginatedFilteredNewsFromResult(
@@ -74,7 +74,7 @@ const News: NextPage = () => {
           <div className="xl:mr-6">
             <NewsCardItem
               itemData={latestNewsItem}
-              isSaved
+              isSaved={bookmarkIds.includes(latestNewsItem.id)}
               onSaveToggle={handleNewsItemSave}
               isLatest
             />

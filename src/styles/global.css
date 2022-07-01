@@ -10,4 +10,8 @@
     * {
         @apply focus:outline-none focus:ring;
     }
+
+    .bg-gradient-1 {
+        background: linear-gradient(180deg, rgba(28, 58, 82, 0) 0%, #05141B 75.5%)
+    }
 }

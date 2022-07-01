@@ -35,31 +35,17 @@ export const NewsCardItem: React.FC<Props> = ({
 
   return (
     <div
-      className={`group h-full min-h-[300px] rounded-md relative overflow-hidden mb-5 ${
+      className={`group h-full min-h-[300px] rounded-md relative overflow-hidden mb-5 bg-gradient-1 ${
         blur ? 'blur-sm' : ''
       }`}
-      style={{
-        background:
-          'linear-gradient(180deg, rgba(28, 58, 82, 0) 0%, #05141B 75.5%)',
-      }}
     >
       {image && (
         <img
-          className={`transition-opacity opacity-50 ${
+          className={`absolute transition-opacity opacity-50 object-cover h-full max-h-full bg-gradient-1 ${
             !isLatest ? 'group-hover:opacity-75' : ''
           }`}
           src={imageSrc}
           alt={`${related} news image`}
-          style={{
-            background:
-              'linear-gradient(180deg, rgba(28, 58, 82, 0) 0%, #05141B 75.5%)',
-            maxHeight: '100%',
-            height: '100%',
-            position: 'absolute',
-            objectFit: 'cover',
-            width: '100%',
-            color: 'white',
-          }}
         />
       )}
       <div className="relative py-7 pl-6 pr-5 h-[425px] xl:h-full flex flex-col justify-between min-h-[inherit]">

@@ -5,6 +5,7 @@ export const useProgressiveImg = (
   highQualitySrc?: string,
 ) => {
   const [src, setSrc] = useState(lowQualitySrc);
+  const [isError, setError] = useState(false);
 
   useEffect(() => {
     setSrc(lowQualitySrc);
@@ -15,11 +16,15 @@ export const useProgressiveImg = (
       img.onload = () => {
         setSrc(highQualitySrc);
       };
+      img.onerror = () => {
+        setSrc(lowQualitySrc);
+        setError(true);
+      };
     }
   }, [lowQualitySrc, highQualitySrc]);
 
   return {
     src,
-    blur: !!highQualitySrc && src === lowQualitySrc,
+    blur: !!highQualitySrc && src === lowQualitySrc && !isError,
   };
 };

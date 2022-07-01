@@ -17,14 +17,7 @@ export const NewsCardList: React.FC<Props> = ({
 
   return (
     <div className="mb-6">
-      <ul
-        className="xl:grid"
-        style={{
-          gridTemplateColumns: 'repeat(3, 280px)',
-          gridAutoRows: '425px',
-          gridGap: '18px',
-        }}
-      >
+      <ul className="xl:grid grid-cols-[repeat(3,280px)] auto-rows-[425px] gap-[18px]">
         {data.map((item) => {
           const isSaved = bookmarkIds.includes(item.id);
 
