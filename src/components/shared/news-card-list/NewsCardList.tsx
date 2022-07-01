@@ -18,7 +18,7 @@ export const NewsCardList: React.FC<Props> = ({
   return (
     <div className="mb-6">
       <ul
-        className="grid"
+        className="xl:grid"
         style={{
           gridTemplateColumns: 'repeat(3, 280px)',
           gridAutoRows: '425px',

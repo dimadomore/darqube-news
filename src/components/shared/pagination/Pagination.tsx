@@ -2,8 +2,6 @@ import { useCallback } from 'react';
 import { Button } from './Button';
 
 interface Props {
-  onPrev?: () => void;
-  onNext?: () => void;
   totalCount: number;
   currentPage: number;
   perPageNumber: number;
@@ -29,24 +27,29 @@ export const Pagination: React.FC<Props> = ({
   if (!totalCount) return null;
 
   return (
-    <div className="flex justify-between items-center">
-      <div className="text-sm">
+    <div className="flex justify-between items-center w-full">
+      <div className="text-sm hidden xl:block">
         <span>
           {(currentPage - 1) * perPageNumber + 1}-
           {Math.min(perPageNumber * currentPage, totalCount)}
         </span>
         <span className="opacity-25 ml-2">out of {totalCount}</span>
       </div>
-      <div>
-        <Button disabled={currentPage === 1} onClick={handlePrev}>
+      <div className="w-full xl:w-auto">
+        <Button
+          disabled={currentPage === 1}
+          onClick={handlePrev}
+          className="hidden xl:inline"
+        >
           Previous
         </Button>
         <Button
           disabled={currentPage > totalCount / perPageNumber}
           onClick={handleNext}
-          className="ml-[10px]"
+          className="xl:ml-[10px] w-full xl:w-auto"
         >
-          Next
+          <span className="hidden xl:inline">Next</span>
+          <span className="xl:hidden">Show more</span>
         </Button>
       </div>
     </div>

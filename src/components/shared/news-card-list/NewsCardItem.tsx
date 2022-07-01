@@ -35,7 +35,7 @@ export const NewsCardItem: React.FC<Props> = ({
 
   return (
     <div
-      className={`group h-full rounded-md relative overflow-hidden ${
+      className={`group h-full min-h-[300px] rounded-md relative overflow-hidden mb-5 ${
         blur ? 'blur-sm' : ''
       }`}
       style={{
@@ -62,7 +62,7 @@ export const NewsCardItem: React.FC<Props> = ({
           }}
         />
       )}
-      <div className="relative py-7 pl-6 pr-5 h-full flex flex-col justify-between">
+      <div className="relative py-7 pl-6 pr-5 h-[425px] xl:h-full flex flex-col justify-between min-h-[inherit]">
         {isLatest && (
           <span className="absolute right-[30px] py-1 px-[6px] bg-red uppercase text-[8px] leading-[9px]">
             Latest news

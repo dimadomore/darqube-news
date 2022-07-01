@@ -42,25 +42,27 @@ const Bookmarks: NextPage = () => {
       <Head>
         <title>Bookmarks</title>
       </Head>
-      {isEmptyBookmarkList && (
-        <p className="text-xl opacity-80">No bookmarks yet...</p>
-      )}
-      {noBookmarkFound && (
-        <p className="text-xl opacity-80">No bookmarks found...</p>
-      )}
-      <NewsCardList
-        data={bookmarks as NewsItem[]}
-        bookmarkIds={bookmarkIds as number[]}
-        onNewsItemSaveToggle={removeBookmark}
-      />
-      {filteredCount > PER_PAGE_NUMBER && (
-        <Pagination
-          totalCount={filteredCount}
-          currentPage={page}
-          perPageNumber={PER_PAGE_NUMBER}
-          onChange={setPage}
+      <div className="xl:w-max">
+        {isEmptyBookmarkList && (
+          <p className="text-xl opacity-80">No bookmarks yet...</p>
+        )}
+        {noBookmarkFound && (
+          <p className="text-xl opacity-80">No bookmarks found...</p>
+        )}
+        <NewsCardList
+          data={bookmarks as NewsItem[]}
+          bookmarkIds={bookmarkIds as number[]}
+          onNewsItemSaveToggle={removeBookmark}
         />
-      )}
+        {filteredCount > PER_PAGE_NUMBER && (
+          <Pagination
+            totalCount={filteredCount}
+            currentPage={page}
+            perPageNumber={PER_PAGE_NUMBER}
+            onChange={setPage}
+          />
+        )}
+      </div>
     </MainLayout>
   );
 };

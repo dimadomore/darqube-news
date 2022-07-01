@@ -21,10 +21,12 @@ export const MainLayout: React.FC<PropsWithChildren<Props>> = ({
   setSearchValue,
 }) => {
   return (
-    <main className="mt-9 px-5">
-      <div className="flex justify-between mb-5">
+    <main className="container mx-auto mt-9 px-5 pb-5">
+      <div className="xl:flex justify-between items-center mb-5">
         <Tabs items={tabs} />
-        <Search onChange={setSearchValue} />
+        <div className="mt-4 xl:mt-0">
+          <Search onChange={setSearchValue} />
+        </div>
       </div>
       {children}
     </main>

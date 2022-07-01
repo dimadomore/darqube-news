@@ -5,7 +5,12 @@ import Head from 'next/head';
 import { NewsCardList, Pagination, NewsCardItem } from 'components/shared';
 import { MainLayout } from 'components/layout';
 import { newsAPI, selectPaginatedFilteredNewsFromResult } from 'store/queries';
-import { useAppDispatch, useAppSelector, useSearch } from 'common/hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useSearch,
+  useWindowWidth,
+} from 'common/hooks';
 import { toggleOne, selectBookmarkIds } from 'store/features/bookmark';
 import { NewsItem } from 'common/types';
 import { PER_PAGE_NUMBER } from 'common/constants';
@@ -15,6 +20,7 @@ const News: NextPage = () => {
   const { searchValue, setSearchValue } = useSearch();
   const bookmarkIds = useAppSelector(selectBookmarkIds);
   const dispatch = useAppDispatch();
+  const { isMobile } = useWindowWidth();
   const {
     data: news = [],
     latestNewsItem,
@@ -31,6 +37,7 @@ const News: NextPage = () => {
       selectFromResult: selectPaginatedFilteredNewsFromResult(
         searchValue,
         page,
+        isMobile,
       ),
     },
   );
@@ -62,9 +69,9 @@ const News: NextPage = () => {
         </p>
       )}
       {isEmptyNewsList && <p className="text-xl opacity-80">No news...</p>}
-      <div className="flex h-screen">
+      <div className="xl:grid grid-cols-[auto_876px] grid-rows-[630px] h-max">
         {latestNewsItem && (
-          <div className="h-1/2 mr-6">
+          <div className="xl:mr-6">
             <NewsCardItem
               itemData={latestNewsItem}
               isSaved
@@ -73,9 +80,9 @@ const News: NextPage = () => {
             />
           </div>
         )}
-        <div>
+        <div className="pb-10">
           {noNewsFound && (
-            <p className="text-xl opacity-80">No bookmarks found...</p>
+            <p className="text-xl opacity-80">No news found...</p>
           )}
           <NewsCardList
             data={news}

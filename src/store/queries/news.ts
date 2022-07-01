@@ -24,7 +24,7 @@ export const newsAPI = createApi({
 });
 
 export const selectPaginatedFilteredNewsFromResult =
-  (searchValue: string, page: number) => (result: any) => {
+  (searchValue: string, page: number, isMobile?: boolean) => (result: any) => {
     if (!result.data) return result;
 
     const [latestNewsItem, ...dataWithoutLatestNews] = result.data;
@@ -37,7 +37,7 @@ export const selectPaginatedFilteredNewsFromResult =
           ])
         : dataWithoutLatestNews;
 
-    const startIndex = PER_PAGE_NUMBER * (page - 1);
+    const startIndex = isMobile ? 0 : PER_PAGE_NUMBER * (page - 1);
     const endIndex = Math.min(
       page * PER_PAGE_NUMBER,
       dataWithoutLatestNews.length,
