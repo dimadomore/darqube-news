@@ -8,12 +8,13 @@ import { useAppDispatch, useAppSelector, useSearch } from 'common/hooks';
 import {
   removeOne,
   selectFilteredPaginatedBookmarks,
+  selectBookmarkIds,
 } from 'store/features/bookmark';
 import { NewsItem } from 'common/types';
 import { PER_PAGE_NUMBER } from 'common/constants';
 
 const Bookmarks: NextPage = () => {
-  const bookmarkIds = useAppSelector((state) => state.bookmark.ids);
+  const bookmarkIds = useAppSelector(selectBookmarkIds);
   const dispatch = useAppDispatch();
   const { searchValue, setSearchValue } = useSearch();
   const [page, setPage] = useState(1);
@@ -32,11 +33,21 @@ const Bookmarks: NextPage = () => {
     setPage(1);
   }, [searchValue]);
 
+  const isEmptyBookmarkList = !bookmarkIds.length;
+  const noBookmarkFound =
+    !!searchValue && !bookmarks.length && !isEmptyBookmarkList;
+
   return (
     <MainLayout setSearchValue={setSearchValue}>
       <Head>
         <title>Bookmarks</title>
       </Head>
+      {isEmptyBookmarkList && (
+        <p className="text-xl opacity-80">No bookmarks yet...</p>
+      )}
+      {noBookmarkFound && (
+        <p className="text-xl opacity-80">No bookmarks found...</p>
+      )}
       <NewsCardList
         data={bookmarks as NewsItem[]}
         bookmarkIds={bookmarkIds as number[]}

@@ -25,9 +25,9 @@ export const newsAPI = createApi({
 
 export const selectPaginatedFilteredNewsFromResult =
   (searchValue: string, page: number) => (result: any) => {
-    const { data } = result;
-    if (!data) return { data: [] };
-    const [latestNewsItem, ...dataWithoutLatestNews] = data;
+    if (!result.data) return result;
+
+    const [latestNewsItem, ...dataWithoutLatestNews] = result.data;
 
     const filteredData =
       searchValue && searchValue.length > 1
@@ -44,8 +44,10 @@ export const selectPaginatedFilteredNewsFromResult =
     );
 
     return {
-      data: filteredData.slice(startIndex, endIndex) as NewsItem[],
+      ...result,
+      data: (filteredData.slice(startIndex, endIndex) as NewsItem[]) ?? [],
       latestNewsItem,
       filteredCount: filteredData.length,
+      isFetching: result.isFetching,
     };
   };

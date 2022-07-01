@@ -31,6 +31,7 @@ export const bookmarkSlice = createSlice({
 export const { removeOne, toggleOne } = bookmarkSlice.actions;
 export const bookmarkReducer = bookmarkSlice.reducer;
 
+export const selectBookmarkIds = (state: RootState) => state.bookmark.ids;
 export const selectFilteredPaginatedBookmarks = (
   searchValue: string,
   currentPage: number,
@@ -47,7 +48,7 @@ export const selectFilteredPaginatedBookmarks = (
       );
 
       const filteredBookmarks =
-        searchValue && searchValue.length > 2
+        searchValue && searchValue.length > 1
           ? filterByTextInKeys(bookmarks as NewsItem[], searchValue, [
               'headline',
               'summary',
