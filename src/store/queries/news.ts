@@ -1,7 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
 
 import { NewsItem } from 'common/types';
-import { BASE_URL, API_TOKEN } from 'common/constants';
+import { BASE_URL, API_TOKEN, PER_PAGE_NUMBER } from 'common/constants';
+import { filterByTextInKeys } from 'common/utils';
 
 interface QueryCompanyNewsParams {
   symbol: string;
@@ -21,3 +22,30 @@ export const newsAPI = createApi({
     }),
   }),
 });
+
+export const selectPaginatedFilteredNewsFromResult =
+  (searchValue: string, page: number) => (result: any) => {
+    const { data } = result;
+    if (!data) return { data: [] };
+    const [latestNewsItem, ...dataWithoutLatestNews] = data;
+
+    const filteredData =
+      searchValue && searchValue.length > 1
+        ? filterByTextInKeys(dataWithoutLatestNews, searchValue, [
+            'headline',
+            'summary',
+          ])
+        : dataWithoutLatestNews;
+
+    const startIndex = PER_PAGE_NUMBER * (page - 1);
+    const endIndex = Math.min(
+      page * PER_PAGE_NUMBER,
+      dataWithoutLatestNews.length,
+    );
+
+    return {
+      data: filteredData.slice(startIndex, endIndex) as NewsItem[],
+      latestNewsItem,
+      filteredCount: filteredData.length,
+    };
+  };

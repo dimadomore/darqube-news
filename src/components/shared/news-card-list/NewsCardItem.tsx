@@ -18,11 +18,11 @@ export const NewsCardItem: React.FC<Props> = ({
   isSaved,
   onSaveToggle,
 }) => {
-  const { headline, image, related, datetime, url, summary } = itemData;
   const { src: imageSrc, blur } = useProgressiveImg(
     fallbackNewsCardImage,
-    image,
+    itemData?.image,
   );
+  const { headline, image, related, datetime, url, summary } = itemData;
 
   const formattedDate = formatTimestamp(datetime, {
     day: 'numeric',
